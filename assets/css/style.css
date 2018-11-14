@@ -1,0 +1,23 @@
+#header{
+text-align:center;
+background-color:	#1E90FF;
+color:white;
+}
+#heading{
+    font-weight:bold;
+}
+#quote{
+    font-style:italic;
+}
+#inputInfo{
+    padding-top:5%;
+    margin-bottom:2%;
+}
+.card-header{
+    background-color:#1E90FF;
+    color: white;
+    font-weight: bold;
+}
+.card {
+    border:1px solid #1E90FF;
+}
