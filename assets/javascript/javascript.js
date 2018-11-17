@@ -5,8 +5,8 @@ var config = {
     projectId: "train-scheduler-f94f7",
     storageBucket: "train-scheduler-f94f7.appspot.com",
     messagingSenderId: "355639663956"
-  };
-  firebase.initializeApp(config);
+};
+firebase.initializeApp(config);
 
 var database = firebase.database();
 
@@ -18,7 +18,7 @@ function clear() {
 }
 
 
-$("#submit").on("click", function(event) {
+$("#submit").on("click", function (event) {
     trainName = $("#trainName").val().trim()
     trainDestination = $("#trainDestination").val().trim()
     firstTrain = $("#firstTrain").val().trim()
@@ -31,26 +31,27 @@ $("#submit").on("click", function(event) {
         frequency: trainFrequency,
     };
 
-    
+
     database.ref().push(newTrainInfo)
     clear();
+});
+database.ref().on("child_added", function (childSnapshot) {
 
-    database.ref().on("child_added", function(childSnapshot) {
-        var trainName = childSnapshot.val().name;
-        var trainDestination = childSnapshot.val().destination;
-        var firstTrain = childSnapshot.val().time;
-        var trainFrequency = childSnapshot.val().frequency;
-        
-         
-            
+    var trainName = childSnapshot.val().name;
+    var trainDestination = childSnapshot.val().destination;
+    var firstTrain = childSnapshot.val().time;
+    var trainFrequency = childSnapshot.val().frequency;
 
-            var firstTimeTwo = moment(firstTrain, "HH:mm").subtract(1, "years");
-            var timeDiff = moment().diff(moment(firstTimeTwo), "minutes");
-            var tApart = timeDiff % trainFrequency;
-            var minutesUntil = trainFrequency - tApart;
-            var nextTrain = moment().add(minutesUntil, "minutes");
 
-            
+
+
+    var firstTimeTwo = moment(firstTrain, "HH:mm").subtract(1, "years");
+    var timeDiff = moment().diff(moment(firstTimeTwo), "minutes");
+    var tApart = timeDiff % trainFrequency;
+    var minutesUntil = trainFrequency - tApart;
+    var nextTrain = moment().add(minutesUntil, "minutes");
+
+
 
 
 
@@ -68,4 +69,4 @@ $("#submit").on("click", function(event) {
    `).appendTo('#newTrainInfo')
 
 })
-})
+
